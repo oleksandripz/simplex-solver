@@ -1,5 +1,4 @@
 export class DualNumber {
-  // r + m * M
   constructor(public r: number, public m: number = 0) {}
 
   add(other: DualNumber): DualNumber {
@@ -15,13 +14,20 @@ export class DualNumber {
   }
 
   div(scalar: number): DualNumber {
-    if (Math.abs(scalar) < 1e-9) throw new Error("Division by zero");
+    if (Math.abs(scalar) < 1e-9) throw new Error("Ділення на нуль");
     return new DualNumber(this.r / scalar, this.m / scalar);
   }
 
   isNegative(): boolean {
     if (this.m < -1e-7) return true;
     if (Math.abs(this.m) <= 1e-7 && this.r < -1e-7) return true;
+    return false;
+  }
+
+  // Додано для перевірки критерію максимізації
+  isPositive(): boolean {
+    if (this.m > 1e-7) return true;
+    if (Math.abs(this.m) <= 1e-7 && this.r > 1e-7) return true;
     return false;
   }
 
